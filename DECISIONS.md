@@ -17,3 +17,12 @@ toolset for this build.
 
 From Jan 2025 onward, NPCI removed columns K and L from the app-wise dataset.
 Columns retained as-is; missing values remain blank for Jan 2025–Oct 2025.
+
+### NPCI schema change (Jan 2025)
+
+Starting with the Jan 2025 app-wise dataset, NPCI removed the "On-us Transactions" columns (Volume, Value).
+
+To maintain a consistent schema across Nov 2023–Oct 2025:
+- On-us Volume and On-us Value columns were retained in the master dataset.
+- These fields are left blank from Jan 2025 onward.
+- Total Volume and Total Value remain in the same final columns.
