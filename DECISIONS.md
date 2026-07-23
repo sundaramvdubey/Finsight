@@ -11,21 +11,11 @@ toolset for this build.
 | 2026-07-22 | Long tail handled via NPCI's own "Other Apps" bucket | NPCI's ecosystem statistics page already aggregates apps under a reporting threshold into "Other Apps" — no custom long-tail engineering needed | Final |
 | 2026-07-22 | Discarded prior "UPI Ecosystem Analysis Report" draft | It contained finished-looking numbers written before any real data was loaded or queried; kept as a shape reference only, not a data source | Final |
 | 2026-07-22 | Market share basis: TBD | Volume-share and value-share can diverge (see PhonePe/GPay vs. value-weighted apps) — decide once first month is loaded and both are visible | Open |
-
-
-## Dataset change
-
-From Jan 2025 onward, NPCI removed columns K and L from the app-wise dataset.
-Columns retained as-is; missing values remain blank for Jan 2025–Oct 2025.
-
-### NPCI schema change (Jan 2025)
-
-Starting with the Jan 2025 app-wise dataset, NPCI removed the "On-us Transactions" columns (Volume, Value).
-
-To maintain a consistent schema across Nov 2023–Oct 2025:
-- On-us Volume and On-us Value columns were retained in the master dataset.
-- These fields are left blank from Jan 2025 onward.
-- Total Volume and Total Value remain in the same final columns.
+| 2026-07-23 | Merged Paytm / Paytm (OCL) / Paytm Payments Bank App into one canonical "Paytm" | Same consumer app across the PPBL-to-OCL backend migration; splitting it would fracture one entity's history mid-window | Final |
+| 2026-07-23 | Merged Slice / Slice Small Finance Bank Apps into one canonical "Slice" | Post banking-license merger rebrand of the same entity | Final |
+| 2026-07-23 | Merged FAM / FamApp by Trio / Fampay / Fampay by Trio into one canonical "Fampay" | Trio Fintech rebrand labels for the same entity | Final |
+| 2026-07-23 | Split Jupiter into two canonical entities: "Jupiter Money" and "Jupiter Edge" | Jupiter Edge is a distinct LivQuick PPI credit-linked product, not the core neobank app — merging them would misattribute volume | Final |
+| 2026-07-23 | Kept POP UPI and Pop Club as separate entities | No confirmed evidence they're the same app; defaulting to not merging avoids a false consolidation | Final |
 
  ### Core Jupiter Money neobank — confirm relation to Jupiter Edge/Jupiter Money below
 Distinct PPI/credit-linked product (LivQuick) — likely a separate TPAP entity, do not auto-merge
