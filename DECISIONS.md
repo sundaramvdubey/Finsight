@@ -41,5 +41,7 @@ Likely same bank, inconsistent NPCI label — confirm
 Base entity name
 <img width="1279" height="171" alt="image" src="https://github.com/user-attachments/assets/b9b4e978-893e-465f-b85f-ed70d4bcea52" />
 
+### PLEASE GO TO THE NOTEBOOKS DIRECTORY IN THE REPO AND REFER TO DECISIONS(1) FROM THERE FOR THE DECISIONS ON THE DATE 23-07-2026 DURING SUPA BASE IMPORT TASK
+
 
 
