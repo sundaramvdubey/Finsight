@@ -10,7 +10,7 @@ toolset for this build.
 | 2026-07-22 | Dropped bank-wise dataset from scope | Brief requires "top apps plus a long tail bucket, one model" — a second full dataset is scope creep against a 40-hour/5-day budget and isn't required | Final |
 | 2026-07-22 | Long tail handled via NPCI's own "Other Apps" bucket | NPCI's ecosystem statistics page already aggregates apps under a reporting threshold into "Other Apps" — no custom long-tail engineering needed | Final |
 | 2026-07-22 | Discarded prior "UPI Ecosystem Analysis Report" draft | It contained finished-looking numbers written before any real data was loaded or queried; kept as a shape reference only, not a data source | Final |
-| 2026-07-22 | Market share basis: TBD | Volume-share and value-share can diverge (see PhonePe/GPay vs. value-weighted apps) — decide once first month is loaded and both are visible | Open |
+| 2026-07-22 | Market share basis: TBD | Volume-share and value-share can diverge (see PhonePe/GPay vs. value-weighted apps) — decide once first month is loaded and both are visible | Final|
 | 2026-07-23 | Market share basis: volume-share primary, value-share secondary | Model is locked to transaction-volume growth; value-share stays as a cross-check column in queries but doesn't drive concentration/projection numbers | Final |
 | 2026-07-23 | Merged Paytm / Paytm (OCL) / Paytm Payments Bank App into one canonical "Paytm" | Same consumer app across the PPBL-to-OCL backend migration; splitting it would fracture one entity's history mid-window | Final |
 | 2026-07-23 | Merged Slice / Slice Small Finance Bank Apps into one canonical "Slice" | Post banking-license merger rebrand of the same entity | Final |
