@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, CircleHelp, Database, ExternalLink, FileText, Github, Info, Play, ShieldCheck, Sparkles } from "lucide-react";
 import { finsightData } from "@/data/finsightData";
+import { downloadCsvReport, downloadPdfReport } from "@/lib/export";
 
 const formatMonth = (value: string) => new Intl.DateTimeFormat("en-IN", { month: "short", year: "2-digit" }).format(new Date(value));
 const formatBn = (value: number) => `${(value / 1000).toFixed(2)} B`;
@@ -17,9 +18,24 @@ export default function Home() {
   const [view, setView] = useState<"volume" | "concentration">("volume");
   const [selectedMonth, setSelectedMonth] = useState<string>(finsightData.metrics.latest_month);
   const [showWalkthrough, setShowWalkthrough] = useState(false);
+  const [exporting, setExporting] = useState<"pdf" | "csv" | null>(null);
+  const [exportMessage, setExportMessage] = useState("");
   const currentRankings = useMemo(() => finsightData.rankings.filter((d) => d.month_start === selectedMonth), [selectedMonth]);
   const volumeDelta = finsightData.monthly.at(-1)!.volume_mn - finsightData.monthly[0].volume_mn;
   const volumeDeltaPct = (volumeDelta / finsightData.monthly[0].volume_mn) * 100;
+  const handleExport = async (kind: "pdf" | "csv") => {
+    setExporting(kind);
+    setExportMessage("");
+    try {
+      if (kind === "csv") downloadCsvReport();
+      else await downloadPdfReport();
+      setExportMessage(`${kind.toUpperCase()} report ready in your downloads.`);
+    } catch {
+      setExportMessage("The report could not be generated. Try again after the dashboard finishes loading.");
+    } finally {
+      setExporting(null);
+    }
+  };
 
   return <div className="app-shell">
     <aside className="side-rail">
@@ -31,11 +47,13 @@ export default function Home() {
         <a href="#projection"><span className="nav-dot" />Projection</a>
         <a href="#method"><span className="nav-dot" />Method</a>
       </nav>
-      <div className="rail-bottom"><div className="owner-chip"><span className="owner-avatar">SD</span><span><b>Maintained by</b><strong>Sundaram Dubey</strong></span></div><span className="v-label">v1.0.0 · 2026</span></div>
+      <div className="rail-bottom"><div className="owner-chip"><span className="owner-avatar">SD</span><span><b>Maintained by</b><strong>Sundaram Dubey</strong></span></div><span className="v-label">v1.1.0 · 2026</span></div>
     </aside>
 
     <main id="top" className="main-canvas">
-      <header className="topbar"><div className="breadcrumb"><span>FINSIGHT</span><ChevronRight size={14} /><span>UPI GROWTH STORY</span></div><div className="top-actions"><span className="status-pill"><span />19 verified months</span><a href="https://github.com/sundaramvdubey/Finsight" target="_blank" rel="noreferrer" className="icon-link" aria-label="Open source repository"><Github size={17} /></a></div></header>
+      <header className="topbar"><div className="breadcrumb"><span>FINSIGHT</span><ChevronRight size={14} /><span>UPI GROWTH STORY</span></div><div className="top-actions"><span className="status-pill"><span />19 verified months</span><div className="export-actions"><button onClick={() => handleExport("csv")} disabled={Boolean(exporting)}>{exporting === "csv" ? "Preparing…" : "CSV"}</button><button onClick={() => handleExport("pdf")} disabled={Boolean(exporting)}>{exporting === "pdf" ? "Preparing…" : "PDF"}</button></div><a href="https://github.com/sundaramvdubey/Finsight" target="_blank" rel="noreferrer" className="icon-link" aria-label="Open source repository"><Github size={17} /></a></div></header>
+
+      {exportMessage && <div className="export-toast" role="status"><Check size={14}/>{exportMessage}</div>}
 
       <section id="readout" className="thesis-grid">
         <div className="thesis-copy"><SectionKicker>THE READOUT · NOV 2023 — OCT 2025</SectionKicker><h1>UPI is still growing.<br /><em>The distribution is the story.</em></h1><p className="dek">Transaction volume climbed from <b>{formatBn(finsightData.metrics.first_volume_mn)}</b> to <b>{formatBn(finsightData.metrics.latest_volume_mn)}</b> across the verified window. But the top two apps still account for <b>{finsightData.metrics.latest_top2_share_pct}%</b> of the latest month.</p><div className="thesis-foot"><span className="thesis-number">01</span><p>For a challenger like CRED, the opening is not “is UPI growing?” It is whether a smaller player can earn a high-intent wedge inside a market whose default behavior remains concentrated.</p></div></div>
@@ -55,11 +73,13 @@ export default function Home() {
 
       <section id="method" className="method-section section-block"><div className="method-intro"><SectionKicker>04 · METHOD & LIMITS</SectionKicker><h2>Good analysis shows its seams.</h2><p>This is a transparent capstone product, not a forecasting oracle. The strongest thing in the room is the evidence trail.</p><a className="download-link" href="https://github.com/sundaramvdubey/Finsight/blob/main/memo/memo.md" target="_blank" rel="noreferrer"><FileText size={16}/> Open the one-page memo <ExternalLink size={13}/></a></div><div className="method-grid"><div className="method-card"><span className="method-index">01</span><h3>Why 19 of 24?</h3><p>Five months were byte-identical to their preceding month in the app-wise export. They were excluded rather than interpolated. No verified app-wise figures could be sourced for those gaps in the original analysis.</p><span className="method-status warn"><Info size={13}/> named limitation</span></div><div className="method-card"><span className="method-index">02</span><h3>Error, reported honestly</h3><p>The temporal holdout test MAPE is <b>1.69%</b> versus <b>2.15%</b> on train. With only 19 real observations and no seasonality term, this is directional—not proof of generalization.</p><span className="method-status check"><Check size={13}/> no overfitting signal in split</span></div><div className="method-card"><span className="method-index">03</span><h3>Provenance by default</h3><p>Primary source: NPCI’s public UPI Ecosystem Statistics. Cross-checks use NPCI press releases only for sanity checks. Cleaned rows retain source_file lineage in the processed dataset.</p><span className="method-status check"><ShieldCheck size={13}/> source trail documented</span></div></div></section>
 
+      <section className="download-center section-block"><div><SectionKicker>EXPORT · LOCAL FIRST</SectionKicker><h2>Take the read with you.</h2><p>Everything here is generated in your browser. CSV includes the verified monthly aggregates, projections, and ranking rows. PDF captures the dashboard with charts, caveats, and provenance.</p></div><div className="download-buttons"><button className="outline-button" onClick={() => handleExport("csv")} disabled={Boolean(exporting)}><Database size={15}/>{exporting === "csv" ? "Preparing CSV…" : "Download CSV report"}</button><button className="outline-button" onClick={() => handleExport("pdf")} disabled={Boolean(exporting)}><FileText size={15}/>{exporting === "pdf" ? "Preparing PDF…" : "Download PDF report"}</button></div></section>
+
       <section className="walkthrough"><div className="walkthrough-image"><img src="/manus-storage/finsight-walkthrough-cover_0adf14bc.jpg" alt="Editorial walkthrough cover" /><div className="play-button"><Play fill="currentColor" size={20}/></div></div><div className="walkthrough-copy"><SectionKicker>03:00 · WALKTHROUGH</SectionKicker><h2>See the answer before you see the interface.</h2><p>A three-minute guided tour: the thesis, the evidence, the projection, and the caveat that keeps the whole thing honest.</p><div className="walkthrough-meta"><span><span className="live-dot" />Video walkthrough</span><span>Owner · Sundaram Dubey</span></div><button className="outline-button" onClick={() => setShowWalkthrough(true)}><Play size={15}/> Open walkthrough</button></div></section>
 
       {showWalkthrough && <div className="walkthrough-modal" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title"><div className="walkthrough-dialog"><button className="modal-close" onClick={() => setShowWalkthrough(false)} aria-label="Close walkthrough">×</button><SectionKicker>03:00 · GUIDED READ</SectionKicker><h2 id="walkthrough-title">The Finsight answer, in four stops.</h2><div className="guided-steps"><div><span>01</span><p><b>Thesis.</b> UPI volume rises, but the top two apps still own the default behavior.</p></div><div><span>02</span><p><b>Evidence.</b> Toggle the chart and use the month selector to inspect concentration directly.</p></div><div><span>03</span><p><b>Projection.</b> A simple linear regression points upward, with an intentionally visible residual band.</p></div><div><span>04</span><p><b>Caveat.</b> Five duplicated months were excluded; the test error is directional, not a guarantee.</p></div></div><a className="download-link" href="https://github.com/sundaramvdubey/Finsight/blob/main/docs/WALKTHROUGH.md" target="_blank" rel="noreferrer">Open the narration script <ExternalLink size={13}/></a></div></div>}
 
-      <footer className="footer"><div><a className="brand footer-brand" href="#top"><span className="brand-mark"><span /><span /></span><span className="brand-word">finsight</span></a><p>UPI growth, read with receipts.</p></div><div className="footer-links"><a href="https://github.com/sundaramvdubey/Finsight" target="_blank" rel="noreferrer">Source repository <ExternalLink size={13}/></a><a href="https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics" target="_blank" rel="noreferrer">NPCI source <ExternalLink size={13}/></a><span>v1.0.0 · MIT code license</span></div></footer>
+      <footer className="footer"><div><a className="brand footer-brand" href="#top"><span className="brand-mark"><span /><span /></span><span className="brand-word">finsight</span></a><p>UPI growth, read with receipts.</p></div><div className="footer-links"><a href="https://github.com/sundaramvdubey/Finsight" target="_blank" rel="noreferrer">Source repository <ExternalLink size={13}/></a><a href="https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics" target="_blank" rel="noreferrer">NPCI source <ExternalLink size={13}/></a><span>v1.1.0 · MIT code license</span></div></footer>
     </main>
   </div>;
 }

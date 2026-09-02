@@ -1,0 +1,10 @@
+{
+  "name": "Finsight v1 — UPI growth, read with receipts",
+  "short_name": "Finsight",
+  "description": "An evidence-first read of UPI app growth, concentration, and a clearly caveated projection.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F4EB",
+  "theme_color": "#F8F4EB",
+  "icons": [{ "src": "/manus-storage/finsight-ledger-mark_101625f9.png", "sizes": "512x512", "type": "image/png" }]
+}

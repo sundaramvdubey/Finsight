@@ -102,3 +102,29 @@ h2 { font:normal clamp(31px,3.3vw,47px)/1.04 var(--serif); letter-spacing:-.03em
 @keyframes fade-in { from { opacity:0; } to { opacity:1; } }
 @keyframes dialog-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 @media (max-width:720px) { .walkthrough-dialog { padding:30px 22px 25px; } }
+
+/* Export controls: compact source-docket actions with clear local-only feedback. */
+.export-actions { display:flex; align-items:center; gap:5px; }
+.export-actions button { border:1px solid var(--rule); background:transparent; color:var(--ink); padding:7px 9px; font:10px var(--mono); letter-spacing:.04em; transition:background .18s var(--ease-out), color .18s var(--ease-out); }
+.export-actions button:hover:not(:disabled) { background:var(--ink); color:var(--paper); }
+.export-actions button:disabled, .outline-button:disabled { opacity:.52; cursor:wait; }
+.export-toast { position:fixed; z-index:15; top:80px; right:25px; display:flex; align-items:center; gap:8px; background:var(--ink); color:var(--paper); padding:12px 15px; font:11px var(--mono); box-shadow:0 8px 25px rgba(29,43,42,.18); animation:toast-in .22s var(--ease-out); }
+.download-center { display:grid; grid-template-columns:1fr 1fr; gap:45px; align-items:center; background:var(--paper-deep); border:1px solid var(--rule); padding:35px 30px; }
+.download-center.section-block { margin-left:clamp(25px,6vw,96px); margin-right:clamp(25px,6vw,96px); }
+.download-center h2 { font-size:38px; }.download-center p { max-width:520px; color:var(--muted); font-size:14px; line-height:1.6; margin-top:14px; }
+.download-buttons { display:flex; flex-direction:column; align-items:flex-start; gap:11px; }.download-buttons .outline-button { margin-top:0; min-width:220px; }
+@keyframes toast-in { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:720px) { .export-actions { display:none; }.export-toast { top:70px; left:20px; right:20px; font-size:10px; }.download-center { grid-template-columns:1fr; gap:22px; padding:27px 20px; }.download-center h2 { font-size:32px; }.download-center.section-block { margin-left:20px; margin-right:20px; } }
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  .side-rail, .topbar, .top-actions, .export-toast, .walkthrough, .footer, .download-center, .view-switch, select { display:none !important; }
+  .app-shell, .main-canvas { display:block; max-width:none; }
+  .section-block, .thesis-grid { margin:0; padding:24px 0; break-inside:avoid; }
+  .thesis-grid { grid-template-columns:1fr 1fr; }
+  .thesis-art { display:block; }
+  .metric-strip { margin:0; }
+  .method-section, .projection-section, .split-section { grid-template-columns:1fr 1fr; }
+  .meaning-panel { break-inside:avoid; }
+  * { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+}

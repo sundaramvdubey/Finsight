@@ -33,6 +33,12 @@ A temporal holdout keeps the last four real months out of training. Test MAPE is
 
 The primary source is [NPCI UPI Ecosystem Statistics](https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics). NPCI monthly press releases are cross-checks only. Raw exports are retained in `data/raw/`; cleaned rows retain `source_file` lineage. The code is MIT-licensed. NPCI data is attributed to NPCI and is not relicensed by this repository. Review current NPCI terms before commercial redistribution or publishing a raw-data mirror. The dashboard is designed as a source-attributed, educational visualization and contains no personal transaction data.
 
+## Export and local-first app
+
+The dashboard now includes browser-local CSV and PDF exports. The CSV report contains the verified monthly aggregates, next-quarter projection rows, and ranking rows. The PDF report captures the dashboard charts, thesis, caveats, and provenance. No export is uploaded to a server.
+
+Finsight is also installable as a PWA from a hosted HTTPS demo or `localhost`. For a dependency-free static bundle, run `bash scripts/package_portable.sh`, then unzip `portable/finsight-v1-static.zip` on another device and run `./run-local.sh` from the extracted folder. Open `http://localhost:4173` in a browser. This is the supported portable path; signed native Windows/macOS/Linux/Android/iOS installers are intentionally not part of this release.
+
 ## Run the checks
 
 ```bash
