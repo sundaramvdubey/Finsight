@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, CircleHelp, Database, ExternalLink, FileText, Github, Info, Play, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, CircleHelp, Database, ExternalLink, FileText, Github, Info, ShieldCheck, Sparkles } from "lucide-react";
 import { finsightData } from "@/data/finsightData";
 import { downloadCsvReport, downloadPdfReport } from "@/lib/export";
 
@@ -17,7 +17,6 @@ function Metric({ label, value, note, accent = "ink" }: { label: string; value: 
 export default function Home() {
   const [view, setView] = useState<"volume" | "concentration">("volume");
   const [selectedMonth, setSelectedMonth] = useState<string>(finsightData.metrics.latest_month);
-  const [showWalkthrough, setShowWalkthrough] = useState(false);
   const [exporting, setExporting] = useState<"pdf" | "csv" | null>(null);
   const [exportMessage, setExportMessage] = useState("");
   const currentRankings = useMemo(() => finsightData.rankings.filter((d) => d.month_start === selectedMonth), [selectedMonth]);
@@ -75,9 +74,6 @@ export default function Home() {
 
       <section className="download-center section-block"><div><SectionKicker>EXPORT · LOCAL FIRST</SectionKicker><h2>Take the read with you.</h2><p>Everything here is generated in your browser. CSV includes the verified monthly aggregates, projections, and ranking rows. PDF captures the dashboard with charts, caveats, and provenance.</p></div><div className="download-buttons"><button className="outline-button" onClick={() => handleExport("csv")} disabled={Boolean(exporting)}><Database size={15}/>{exporting === "csv" ? "Preparing CSV…" : "Download CSV report"}</button><button className="outline-button" onClick={() => handleExport("pdf")} disabled={Boolean(exporting)}><FileText size={15}/>{exporting === "pdf" ? "Preparing PDF…" : "Download PDF report"}</button></div></section>
 
-      <section className="walkthrough"><div className="walkthrough-image"><img src="/manus-storage/finsight-walkthrough-cover_0adf14bc.jpg" alt="Editorial walkthrough cover" /><div className="play-button"><Play fill="currentColor" size={20}/></div></div><div className="walkthrough-copy"><SectionKicker>03:00 · WALKTHROUGH</SectionKicker><h2>See the answer before you see the interface.</h2><p>A three-minute guided tour: the thesis, the evidence, the projection, and the caveat that keeps the whole thing honest.</p><div className="walkthrough-meta"><span><span className="live-dot" />Video walkthrough</span><span>Owner · Sundaram Dubey</span></div><button className="outline-button" onClick={() => setShowWalkthrough(true)}><Play size={15}/> Open walkthrough</button></div></section>
-
-      {showWalkthrough && <div className="walkthrough-modal" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title"><div className="walkthrough-dialog"><button className="modal-close" onClick={() => setShowWalkthrough(false)} aria-label="Close walkthrough">×</button><SectionKicker>03:00 · GUIDED READ</SectionKicker><h2 id="walkthrough-title">The Finsight answer, in four stops.</h2><div className="guided-steps"><div><span>01</span><p><b>Thesis.</b> UPI volume rises, but the top two apps still own the default behavior.</p></div><div><span>02</span><p><b>Evidence.</b> Toggle the chart and use the month selector to inspect concentration directly.</p></div><div><span>03</span><p><b>Projection.</b> A simple linear regression points upward, with an intentionally visible residual band.</p></div><div><span>04</span><p><b>Caveat.</b> Five duplicated months were excluded; the test error is directional, not a guarantee.</p></div></div><a className="download-link" href="https://github.com/sundaramvdubey/Finsight/blob/main/docs/WALKTHROUGH.md" target="_blank" rel="noreferrer">Open the narration script <ExternalLink size={13}/></a></div></div>}
 
       <footer className="footer"><div><a className="brand footer-brand" href="#top"><span className="brand-mark"><span /><span /></span><span className="brand-word">finsight</span></a><p>UPI growth, read with receipts.</p></div><div className="footer-links"><a href="https://github.com/sundaramvdubey/Finsight" target="_blank" rel="noreferrer">Source repository <ExternalLink size={13}/></a><a href="https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics" target="_blank" rel="noreferrer">NPCI source <ExternalLink size={13}/></a><span>v1.1.0 · MIT code license</span></div></footer>
     </main>
