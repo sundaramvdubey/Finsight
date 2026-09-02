@@ -16,3 +16,8 @@ Thumbs.db
 # Secrets — never commit
 .env
 supabase_keys.txt
+
+# Node / frontend build artifacts
+node_modules/
+dist/
+.vite/
