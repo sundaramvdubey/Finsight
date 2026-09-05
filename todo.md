@@ -43,3 +43,11 @@
 - [ ] Add production-asset checks and strengthen automated tests.
 - [ ] Add citation.cff, CONTRIBUTING.md, and confirm the license files and metadata.
 - [ ] Verify the refreshed release and publish v1.2 with remaining limits documented.
+
+## Portable release workflow repair
+
+- [ ] Inspect the failed `Build portable Finsight app` run for v1.2.0.
+- [ ] Reproduce the failure locally with the same build and packaging commands.
+- [ ] Patch the workflow or portable packaging script.
+- [ ] Verify the static bundle, archive contents, and release-upload path.
+- [ ] Rerun the workflow and confirm the v1.2.0 asset status.
