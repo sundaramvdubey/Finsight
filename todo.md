@@ -7,7 +7,7 @@
 - [x] Add export status, success, and failure feedback in the dashboard.
 - [x] Add a compact “download center” UI that explains exactly what each export contains.
 - [x] Add offline-capable app-shell metadata and a service worker for static assets.
-- [ ] Add a local data refresh/import path without changing the locked analysis or inventing data.
+- [x] Add a local data refresh/import path without changing the locked analysis or inventing data.
 - [x] Add practical accessibility improvements: keyboard focus, labels, reduced motion, and print styling.
 
 ## Portable distribution
@@ -22,32 +22,32 @@
 - [x] Add automated tests for export contents and key dashboard metrics.
 - [x] Verify production build, CSV download, PDF rendering, offline shell, and mobile layout.
 - [x] Update README, license, provenance, walkthrough, and contribution documentation.
-- [ ] Publish a clean tagged open-source release to the existing GitHub repository.
+- [x] Publish a clean tagged open-source release to the existing GitHub repository.
 - [x] Package a source archive that excludes node_modules and build output.
 
 ## LinkedIn launch
 
-- [ ] Draft a plainspoken launch post with the live demo and GitHub release links.
-- [ ] Confirm LinkedIn access and posting destination.
-- [ ] Get explicit approval immediately before publishing.
-- [ ] Publish the approved post and record the outcome.
+- [x] Draft a plainspoken launch post with the live demo and GitHub release links.
+- [x] Confirm LinkedIn access and posting destination.
+- [x] Get explicit approval immediately before publishing.
+- [x] Publish the approved post and record the outcome.
 
 ## v1.2 critique-driven improvement pass
 
-- [ ] Audit current data currency, source terms, and reproducibility constraints.
-- [ ] Refresh the supported data window only from a citable, permitted source.
-- [ ] Make excluded months and missing-month handling explicit in the dashboard.
-- [ ] Compare multiple forecasting baselines with rolling or temporal validation.
-- [ ] Deepen the CRED share, growth, and ranking analysis if the available data supports it.
-- [ ] Replace inaccurate “AI-driven” wording with precise implementation language.
-- [ ] Add production-asset checks and strengthen automated tests.
-- [ ] Add citation.cff, CONTRIBUTING.md, and confirm the license files and metadata.
-- [ ] Verify the refreshed release and publish v1.2 with remaining limits documented.
+- [x] Audit current data currency, source terms, and reproducibility constraints.
+- [x] Refresh the supported data window only from a citable, permitted source.
+- [x] Make excluded months and missing-month handling explicit in the dashboard.
+- [x] Compare multiple forecasting baselines with rolling or temporal validation.
+- [x] Deepen the CRED share, growth, and ranking analysis if the available data supports it.
+- [x] Replace inaccurate “AI-driven” wording with precise implementation language.
+- [x] Add production-asset checks and strengthen automated tests.
+- [x] Add citation.cff, CONTRIBUTING.md, and confirm the license files and metadata.
+- [x] Verify the refreshed release and publish v1.2 with remaining limits documented.
 
 ## Portable release workflow repair
 
-- [ ] Inspect the failed `Build portable Finsight app` run for v1.2.0.
-- [ ] Reproduce the failure locally with the same build and packaging commands.
-- [ ] Patch the workflow or portable packaging script.
-- [ ] Verify the static bundle, archive contents, and release-upload path.
-- [ ] Rerun the workflow and confirm the v1.2.0 asset status.
+- [x] Inspect the failed `Build portable Finsight app` run for v1.2.0.
+- [x] Reproduce the failure locally with the same build and packaging commands.
+- [x] Patch the workflow or portable packaging script.
+- [x] Verify the static bundle, archive contents, and release-upload path.
+- [x] Rerun the workflow and confirm the v1.2.0 asset status.
