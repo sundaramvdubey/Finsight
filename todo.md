@@ -24,3 +24,22 @@
 - [x] Update README, license, provenance, walkthrough, and contribution documentation.
 - [ ] Publish a clean tagged open-source release to the existing GitHub repository.
 - [x] Package a source archive that excludes node_modules and build output.
+
+## LinkedIn launch
+
+- [ ] Draft a plainspoken launch post with the live demo and GitHub release links.
+- [ ] Confirm LinkedIn access and posting destination.
+- [ ] Get explicit approval immediately before publishing.
+- [ ] Publish the approved post and record the outcome.
+
+## v1.2 critique-driven improvement pass
+
+- [ ] Audit current data currency, source terms, and reproducibility constraints.
+- [ ] Refresh the supported data window only from a citable, permitted source.
+- [ ] Make excluded months and missing-month handling explicit in the dashboard.
+- [ ] Compare multiple forecasting baselines with rolling or temporal validation.
+- [ ] Deepen the CRED share, growth, and ranking analysis if the available data supports it.
+- [ ] Replace inaccurate “AI-driven” wording with precise implementation language.
+- [ ] Add production-asset checks and strengthen automated tests.
+- [ ] Add citation.cff, CONTRIBUTING.md, and confirm the license files and metadata.
+- [ ] Verify the refreshed release and publish v1.2 with remaining limits documented.

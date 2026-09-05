@@ -6,9 +6,9 @@ Finsight uses the repository’s processed app-wise monthly table at `data/proce
 
 ## Primary source
 
-The intended primary source is the [NPCI UPI Ecosystem Statistics page](https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics). The raw workbook exports are retained in `data/raw/` as the project’s provenance archive. NPCI monthly press releases are used only as sanity checks, not as a substitute for the app-wise table.
+The primary source for the ecosystem pulse is the [NPCI UPI Product Statistics page](https://www.npci.org.in/product/upi/product-statistics). The five April–August 2026 rows are retained in `data/raw/npci_upi_monthly_2026_27.csv` with the source URL and source note. The original app-wise workbook exports remain in `data/raw/` as the project’s provenance archive. NPCI monthly press releases are used only as sanity checks, not as a substitute for the app-wise table.
 
-The source page was not reliably reachable during the v1 release audit, so this release preserves the original source URL and states the limitation rather than claiming a fresh re-download. A future refresh should re-confirm the page, download dates, and any current NPCI terms before replacing the raw archive.
+The current NPCI public table exposes ecosystem-level monthly volume, value, and banks-live fields through August 2026. It does not expose a matching app-wise CRED row in the same table, so Finsight refreshes the ecosystem pulse separately and keeps the app-wise CRED analysis bounded at October 2025. The dashboard never silently combines those grains.
 
 ## Why only 19 of 24 months are used
 
@@ -24,4 +24,4 @@ The live dashboard is designed as an educational, non-commercial, source-attribu
 
 ## Refresh checklist
 
-Before refreshing the dashboard, download the official app-wise exports, preserve the original files unchanged in `data/raw/`, update the cleaning notes, run `python scripts/validate_data.py`, rerun the model, and record all definition changes in `DECISIONS.md`. Do not patch missing months with invented values.
+Before refreshing the dashboard, download official exports, preserve original files unchanged in `data/raw/`, update the cleaning notes, run `python scripts/validate_data.py`, rerun `python scripts/model_benchmark.py`, regenerate the typed module with `python scripts/build_dashboard_data.py`, and record all definition changes in `DECISIONS.md`. Do not patch missing months with invented values or mix ecosystem-level and app-wise data.

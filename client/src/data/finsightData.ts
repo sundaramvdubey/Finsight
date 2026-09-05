@@ -1,4 +1,3 @@
-/* Generated from data/processed/upi_monthly_app_FINAL.csv; do not hand-edit metrics. */
 export const finsightData = {
   "monthly": [
     {
@@ -972,6 +971,187 @@ export const finsightData = {
       "2024-03-01",
       "2024-09-01",
       "2025-07-01"
-    ]
-  }
+    ],
+    "app_latest_month": "2025-10-01",
+    "app_latest_volume_mn": 19967.41,
+    "ecosystem_latest_month": "2026-08-01",
+    "ecosystem_latest_volume_mn": 24508.96,
+    "ecosystem_latest_value_cr": 2982355.95,
+    "rolling_mape_pct": 3.2191,
+    "rolling_validation_folds": 11,
+    "model_winner": "linear_trend"
+  },
+  "current_pulse": {
+    "month": "2026-08-01",
+    "banks_live": 752,
+    "volume_mn": 24508.96,
+    "value_cr": 2982355.95,
+    "source_url": "https://www.npci.org.in/product/upi/product-statistics",
+    "label": "Official NPCI ecosystem pulse; not mixed into app-wise trend charts"
+  },
+  "model_benchmark": [
+    {
+      "method": "linear_trend",
+      "mape_pct": 3.2191,
+      "mae_mn": 540.98,
+      "folds": 11,
+      "last_forecast_mn": 20369.63
+    },
+    {
+      "method": "rolling_mean_3",
+      "mape_pct": 4.5732,
+      "mae_mn": 825.59,
+      "folds": 11,
+      "last_forecast_mn": 19546.28
+    },
+    {
+      "method": "last_value",
+      "mape_pct": 5.0826,
+      "mae_mn": 892.02,
+      "folds": 11,
+      "last_forecast_mn": 19967.41
+    },
+    {
+      "method": "drift",
+      "mape_pct": 5.5219,
+      "mae_mn": 948.91,
+      "folds": 11,
+      "last_forecast_mn": 20456.67
+    }
+  ],
+  "cred_trend": [
+    {
+      "month_start": "2023-11-01",
+      "volume_mn": 93.31,
+      "share_pct": 0.84,
+      "rank": 4,
+      "growth_pct": null
+    },
+    {
+      "month_start": "2024-01-01",
+      "volume_mn": 108.86,
+      "share_pct": 0.9,
+      "rank": 4,
+      "growth_pct": 16.66
+    },
+    {
+      "month_start": "2024-04-01",
+      "volume_mn": 138.46,
+      "share_pct": 1.05,
+      "rank": 4,
+      "growth_pct": 27.19
+    },
+    {
+      "month_start": "2024-05-01",
+      "volume_mn": 140.08,
+      "share_pct": 1.01,
+      "rank": 4,
+      "growth_pct": 1.17
+    },
+    {
+      "month_start": "2024-06-01",
+      "volume_mn": 138.42,
+      "share_pct": 1.02,
+      "rank": 4,
+      "growth_pct": -1.19
+    },
+    {
+      "month_start": "2024-07-01",
+      "volume_mn": 142.56,
+      "share_pct": 1.01,
+      "rank": 4,
+      "growth_pct": 2.99
+    },
+    {
+      "month_start": "2024-08-01",
+      "volume_mn": 147.48,
+      "share_pct": 1.0,
+      "rank": 4,
+      "growth_pct": 3.45
+    },
+    {
+      "month_start": "2024-10-01",
+      "volume_mn": 152.28,
+      "share_pct": 0.94,
+      "rank": 5,
+      "growth_pct": 3.25
+    },
+    {
+      "month_start": "2024-11-01",
+      "volume_mn": 138.24,
+      "share_pct": 0.91,
+      "rank": 5,
+      "growth_pct": -9.22
+    },
+    {
+      "month_start": "2024-12-01",
+      "volume_mn": 143.07,
+      "share_pct": 0.87,
+      "rank": 5,
+      "growth_pct": 3.49
+    },
+    {
+      "month_start": "2025-01-01",
+      "volume_mn": 137.44,
+      "share_pct": 0.83,
+      "rank": 5,
+      "growth_pct": -3.94
+    },
+    {
+      "month_start": "2025-02-01",
+      "volume_mn": 126.48,
+      "share_pct": 0.8,
+      "rank": 6,
+      "growth_pct": -7.97
+    },
+    {
+      "month_start": "2025-03-01",
+      "volume_mn": 144.82,
+      "share_pct": 0.81,
+      "rank": 6,
+      "growth_pct": 14.5
+    },
+    {
+      "month_start": "2025-04-01",
+      "volume_mn": 134.67,
+      "share_pct": 0.77,
+      "rank": 6,
+      "growth_pct": -7.01
+    },
+    {
+      "month_start": "2025-05-01",
+      "volume_mn": 141.95,
+      "share_pct": 0.78,
+      "rank": 6,
+      "growth_pct": 5.41
+    },
+    {
+      "month_start": "2025-06-01",
+      "volume_mn": 138.32,
+      "share_pct": 0.77,
+      "rank": 6,
+      "growth_pct": -2.56
+    },
+    {
+      "month_start": "2025-08-01",
+      "volume_mn": 150.0,
+      "share_pct": 0.77,
+      "rank": 6,
+      "growth_pct": 8.44
+    },
+    {
+      "month_start": "2025-09-01",
+      "volume_mn": 147.86,
+      "share_pct": 0.77,
+      "rank": 6,
+      "growth_pct": -1.43
+    },
+    {
+      "month_start": "2025-10-01",
+      "volume_mn": 157.99,
+      "share_pct": 0.79,
+      "rank": 6,
+      "growth_pct": 6.85
+    }
+  ]
 } as const;

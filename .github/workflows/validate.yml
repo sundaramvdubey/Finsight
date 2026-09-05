@@ -16,5 +16,9 @@ jobs:
           python-version: '3.11'
       - name: Install validation dependency
         run: python -m pip install --upgrade pip pandas
-      - name: Validate processed dataset
+      - name: Validate processed dataset and official pulse
         run: python scripts/validate_data.py
+      - name: Run model benchmark
+        run: python scripts/model_benchmark.py
+      - name: Check generated benchmark artifact
+        run: test -s data/processed/model_benchmark.json

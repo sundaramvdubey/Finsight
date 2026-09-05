@@ -9,7 +9,7 @@ Finsight’s expanded product layer adds usability around the existing capstone 
 | Download center | Makes export contents explicit | No account or server state |
 | PWA install | Opens like a lightweight app on desktop/mobile | Service worker caches static shell |
 | Month selector and chart toggle | Inspect the evidence instead of accepting one headline | Data is bundled and deterministic |
-| Guided walkthrough | Helps first-time users understand the read | In-dashboard content plus recordable script |
+| Walkthrough support | Helps a reviewer understand the read | Recordable narration script only; the in-dashboard walkthrough was removed from the public UI |
 
 The portable distribution default is an installable static web app rather than a native binary. That choice keeps the project cross-platform, free to run, easy to audit, and compatible with GitHub-based contribution. A future native wrapper would be a packaging convenience only; it would not change the analysis or data model.
 

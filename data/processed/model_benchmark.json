@@ -1,0 +1,309 @@
+{
+  "input_start": "2023-11-01",
+  "input_end": "2025-10-01",
+  "observations": 19,
+  "validation": "expanding-window one-step-ahead; minimum training window = 8 verified observations",
+  "winner_by_mape": "linear_trend",
+  "models": [
+    {
+      "method": "linear_trend",
+      "folds": 11,
+      "mape_pct": 3.2191,
+      "mae_mn": 540.98,
+      "last_forecast_mn": 20369.63,
+      "fold_details": [
+        {
+          "origin_month": "2024-11-01",
+          "actual_volume_mn": 15166.15,
+          "predicted_volume_mn": 16353.39,
+          "ape_pct": 7.8282
+        },
+        {
+          "origin_month": "2024-12-01",
+          "actual_volume_mn": 16387.86,
+          "predicted_volume_mn": 16432.75,
+          "ape_pct": 0.2739
+        },
+        {
+          "origin_month": "2025-01-01",
+          "actual_volume_mn": 16633.84,
+          "predicted_volume_mn": 16942.66,
+          "ape_pct": 1.8566
+        },
+        {
+          "origin_month": "2025-02-01",
+          "actual_volume_mn": 15759.54,
+          "predicted_volume_mn": 17355.78,
+          "ape_pct": 10.1287
+        },
+        {
+          "origin_month": "2025-03-01",
+          "actual_volume_mn": 17883.34,
+          "predicted_volume_mn": 17335.08,
+          "ape_pct": 3.0657
+        },
+        {
+          "origin_month": "2025-04-01",
+          "actual_volume_mn": 17499.11,
+          "predicted_volume_mn": 17953.77,
+          "ape_pct": 2.5982
+        },
+        {
+          "origin_month": "2025-05-01",
+          "actual_volume_mn": 18269.23,
+          "predicted_volume_mn": 18291.93,
+          "ape_pct": 0.1242
+        },
+        {
+          "origin_month": "2025-06-01",
+          "actual_volume_mn": 17975.6,
+          "predicted_volume_mn": 18740.95,
+          "ape_pct": 4.2577
+        },
+        {
+          "origin_month": "2025-08-01",
+          "actual_volume_mn": 19540.87,
+          "predicted_volume_mn": 19004.12,
+          "ape_pct": 2.7468
+        },
+        {
+          "origin_month": "2025-09-01",
+          "actual_volume_mn": 19130.55,
+          "predicted_volume_mn": 19568.03,
+          "ape_pct": 2.2868
+        },
+        {
+          "origin_month": "2025-10-01",
+          "actual_volume_mn": 19967.41,
+          "predicted_volume_mn": 19918.96,
+          "ape_pct": 0.2426
+        }
+      ]
+    },
+    {
+      "method": "rolling_mean_3",
+      "folds": 11,
+      "mape_pct": 4.5732,
+      "mae_mn": 825.59,
+      "last_forecast_mn": 19546.28,
+      "fold_details": [
+        {
+          "origin_month": "2024-11-01",
+          "actual_volume_mn": 15166.15,
+          "predicted_volume_mn": 15030.74,
+          "ape_pct": 0.8928
+        },
+        {
+          "origin_month": "2024-12-01",
+          "actual_volume_mn": 16387.86,
+          "predicted_volume_mn": 15366.59,
+          "ape_pct": 6.2318
+        },
+        {
+          "origin_month": "2025-01-01",
+          "actual_volume_mn": 16633.84,
+          "predicted_volume_mn": 15935.4,
+          "ape_pct": 4.1989
+        },
+        {
+          "origin_month": "2025-02-01",
+          "actual_volume_mn": 15759.54,
+          "predicted_volume_mn": 16062.62,
+          "ape_pct": 1.9231
+        },
+        {
+          "origin_month": "2025-03-01",
+          "actual_volume_mn": 17883.34,
+          "predicted_volume_mn": 16260.41,
+          "ape_pct": 9.0751
+        },
+        {
+          "origin_month": "2025-04-01",
+          "actual_volume_mn": 17499.11,
+          "predicted_volume_mn": 16758.91,
+          "ape_pct": 4.2299
+        },
+        {
+          "origin_month": "2025-05-01",
+          "actual_volume_mn": 18269.23,
+          "predicted_volume_mn": 17047.33,
+          "ape_pct": 6.6883
+        },
+        {
+          "origin_month": "2025-06-01",
+          "actual_volume_mn": 17975.6,
+          "predicted_volume_mn": 17883.89,
+          "ape_pct": 0.5102
+        },
+        {
+          "origin_month": "2025-08-01",
+          "actual_volume_mn": 19540.87,
+          "predicted_volume_mn": 17914.65,
+          "ape_pct": 8.3222
+        },
+        {
+          "origin_month": "2025-09-01",
+          "actual_volume_mn": 19130.55,
+          "predicted_volume_mn": 18595.23,
+          "ape_pct": 2.7982
+        },
+        {
+          "origin_month": "2025-10-01",
+          "actual_volume_mn": 19967.41,
+          "predicted_volume_mn": 18882.34,
+          "ape_pct": 5.4342
+        }
+      ]
+    },
+    {
+      "method": "last_value",
+      "folds": 11,
+      "mape_pct": 5.0826,
+      "mae_mn": 892.02,
+      "last_forecast_mn": 19967.41,
+      "fold_details": [
+        {
+          "origin_month": "2024-11-01",
+          "actual_volume_mn": 15166.15,
+          "predicted_volume_mn": 16252.18,
+          "ape_pct": 7.1609
+        },
+        {
+          "origin_month": "2024-12-01",
+          "actual_volume_mn": 16387.86,
+          "predicted_volume_mn": 15166.15,
+          "ape_pct": 7.455
+        },
+        {
+          "origin_month": "2025-01-01",
+          "actual_volume_mn": 16633.84,
+          "predicted_volume_mn": 16387.86,
+          "ape_pct": 1.4788
+        },
+        {
+          "origin_month": "2025-02-01",
+          "actual_volume_mn": 15759.54,
+          "predicted_volume_mn": 16633.84,
+          "ape_pct": 5.5478
+        },
+        {
+          "origin_month": "2025-03-01",
+          "actual_volume_mn": 17883.34,
+          "predicted_volume_mn": 15759.54,
+          "ape_pct": 11.8759
+        },
+        {
+          "origin_month": "2025-04-01",
+          "actual_volume_mn": 17499.11,
+          "predicted_volume_mn": 17883.34,
+          "ape_pct": 2.1957
+        },
+        {
+          "origin_month": "2025-05-01",
+          "actual_volume_mn": 18269.23,
+          "predicted_volume_mn": 17499.11,
+          "ape_pct": 4.2154
+        },
+        {
+          "origin_month": "2025-06-01",
+          "actual_volume_mn": 17975.6,
+          "predicted_volume_mn": 18269.23,
+          "ape_pct": 1.6335
+        },
+        {
+          "origin_month": "2025-08-01",
+          "actual_volume_mn": 19540.87,
+          "predicted_volume_mn": 17975.6,
+          "ape_pct": 8.0102
+        },
+        {
+          "origin_month": "2025-09-01",
+          "actual_volume_mn": 19130.55,
+          "predicted_volume_mn": 19540.87,
+          "ape_pct": 2.1448
+        },
+        {
+          "origin_month": "2025-10-01",
+          "actual_volume_mn": 19967.41,
+          "predicted_volume_mn": 19130.55,
+          "ape_pct": 4.1911
+        }
+      ]
+    },
+    {
+      "method": "drift",
+      "folds": 11,
+      "mape_pct": 5.5219,
+      "mae_mn": 948.91,
+      "last_forecast_mn": 20456.67,
+      "fold_details": [
+        {
+          "origin_month": "2024-11-01",
+          "actual_volume_mn": 15166.15,
+          "predicted_volume_mn": 16979.52,
+          "ape_pct": 11.9567
+        },
+        {
+          "origin_month": "2024-12-01",
+          "actual_volume_mn": 16387.86,
+          "predicted_volume_mn": 15666.82,
+          "ape_pct": 4.3998
+        },
+        {
+          "origin_month": "2025-01-01",
+          "actual_volume_mn": 16633.84,
+          "predicted_volume_mn": 16968.65,
+          "ape_pct": 2.0128
+        },
+        {
+          "origin_month": "2025-02-01",
+          "actual_volume_mn": 15759.54,
+          "predicted_volume_mn": 17181.15,
+          "ape_pct": 9.0206
+        },
+        {
+          "origin_month": "2025-03-01",
+          "actual_volume_mn": 17883.34,
+          "predicted_volume_mn": 16177.61,
+          "ape_pct": 9.5381
+        },
+        {
+          "origin_month": "2025-04-01",
+          "actual_volume_mn": 17499.11,
+          "predicted_volume_mn": 18443.55,
+          "ape_pct": 5.3971
+        },
+        {
+          "origin_month": "2025-05-01",
+          "actual_volume_mn": 18269.23,
+          "predicted_volume_mn": 17986.67,
+          "ape_pct": 1.5466
+        },
+        {
+          "origin_month": "2025-06-01",
+          "actual_volume_mn": 17975.6,
+          "predicted_volume_mn": 18776.98,
+          "ape_pct": 4.4581
+        },
+        {
+          "origin_month": "2025-08-01",
+          "actual_volume_mn": 19540.87,
+          "predicted_volume_mn": 18429.92,
+          "ape_pct": 5.6853
+        },
+        {
+          "origin_month": "2025-09-01",
+          "actual_volume_mn": 19130.55,
+          "predicted_volume_mn": 20064.63,
+          "ape_pct": 4.8826
+        },
+        {
+          "origin_month": "2025-10-01",
+          "actual_volume_mn": 19967.41,
+          "predicted_volume_mn": 19599.36,
+          "ape_pct": 1.8433
+        }
+      ]
+    }
+  ]
+}

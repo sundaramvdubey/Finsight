@@ -19,7 +19,7 @@ const csvEscape = (value: unknown) => {
 
 export function buildCsvReport() {
   const rows: string[][] = [
-    ["Finsight v1 — verified monthly aggregates"],
+    ["Finsight v1.2 — verified analytics report"],
     ["Source", "NPCI UPI Ecosystem Statistics"],
     ["Window", "2023-11-01 to 2025-10-01; 19 verified months of 24 calendar months"],
     [],
@@ -31,12 +31,21 @@ export function buildCsvReport() {
     [],
     ["section", "month_start", "app_name", "rank", "volume_mn", "share_pct"],
     ...finsightData.rankings.map((row) => ["ranking", row.month_start, row.app_name, String(row.rank), String(row.volume_mn), String(row.share_pct)]),
+    [],
+    ["section", "month", "banks_live", "volume_mn", "value_cr", "source_url"],
+    ["official_pulse", finsightData.current_pulse.month, String(finsightData.current_pulse.banks_live), String(finsightData.current_pulse.volume_mn), String(finsightData.current_pulse.value_cr), finsightData.current_pulse.source_url],
+    [],
+    ["section", "method", "mape_pct", "mae_mn", "folds", "last_forecast_mn"],
+    ...finsightData.model_benchmark.map((row) => ["benchmark", row.method, String(row.mape_pct), String(row.mae_mn), String(row.folds), String(row.last_forecast_mn)]),
+    [],
+    ["section", "month_start", "volume_mn", "share_pct", "rank", "growth_pct"],
+    ...finsightData.cred_trend.map((row) => ["cred_trend", row.month_start, String(row.volume_mn), String(row.share_pct), String(row.rank), String(row.growth_pct ?? "")]),
   ];
   return `\ufeff${rows.map((row) => row.map(csvEscape).join(",")).join("\n")}\n`;
 }
 
 export function downloadCsvReport() {
-  downloadBlob(new Blob([buildCsvReport()], { type: "text/csv;charset=utf-8" }), "finsight-v1-report.csv");
+  downloadBlob(new Blob([buildCsvReport()], { type: "text/csv;charset=utf-8" }), "finsight-v1.2-report.csv");
 }
 
 function sliceCanvas(source: HTMLCanvasElement, y: number, height: number) {
@@ -78,9 +87,9 @@ export async function downloadPdfReport() {
     pdf.addImage(dataUrl, "JPEG", margin, margin, contentWidth, renderedHeight, undefined, "FAST");
     pdf.setFontSize(7);
     pdf.setTextColor("#7C837B");
-    pdf.text(`Finsight v1 · source-attributed dashboard export · page ${page + 1}`, margin, pageHeight - 8);
+    pdf.text(`Finsight v1.2 · source-attributed dashboard export · page ${page + 1}`, margin, pageHeight - 8);
     y += height;
     page += 1;
   }
-  pdf.save("finsight-v1-dashboard-report.pdf");
+  pdf.save("finsight-v1.2-dashboard-report.pdf");
 }

@@ -1,8 +1,8 @@
 """Validate the processed Finsight dataset before analysis or release.
 
 The checks are intentionally small and auditable: schema, nulls, date window,
-unique month/app grain, non-negative metrics, and the documented 19-month
-verified observation count.
+unique month/app grain, non-negative metrics, the documented 19-month
+verified observation count, and the separately sourced official ecosystem pulse.
 """
 from pathlib import Path
 import sys
@@ -10,7 +10,9 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "processed" / "upi_monthly_app_FINAL.csv"
+PULSE = ROOT / "data" / "raw" / "npci_upi_monthly_2026_27.csv"
 EXPECTED_COLUMNS = ["month_start", "app_name", "volume_mn", "value_cr", "source_file"]
+PULSE_COLUMNS = ["month_start", "banks_live", "volume_mn", "value_cr", "source_url", "source_note"]
 START = pd.Timestamp("2023-11-01")
 END = pd.Timestamp("2025-10-01")
 EXPECTED_VERIFIED_MONTHS = 19
@@ -49,12 +51,25 @@ def main() -> None:
             fail(f"{column} is not numeric")
         if (df[column] < 0).any():
             fail(f"{column} contains negative values")
-    print("PASS  schema: expected columns present")
+    if not PULSE.exists():
+        fail(f"missing official pulse file: {PULSE}")
+    pulse = pd.read_csv(PULSE)
+    if list(pulse.columns) != PULSE_COLUMNS:
+        fail(f"pulse schema mismatch: expected {PULSE_COLUMNS}, got {list(pulse.columns)}")
+    if pulse.empty or pulse[PULSE_COLUMNS].isna().any().any():
+        fail("official pulse is empty or contains null required fields")
+    pulse["month_start"] = pd.to_datetime(pulse["month_start"], errors="coerce")
+    if pulse["month_start"].isna().any() or pulse["month_start"].duplicated().any():
+        fail("official pulse contains invalid or duplicate months")
+    if (pulse[["banks_live", "volume_mn", "value_cr"]] < 0).any().any():
+        fail("official pulse contains negative metrics")
+    print("PASS  schema: app-wise and official pulse columns present")
     print("PASS  nulls: no nulls in required fields")
     print(f"PASS  date range: {df['month_start'].min():%Y-%m-%d} to {df['month_start'].max():%Y-%m-%d}")
     print(f"PASS  verified months: {df['month_start'].nunique()} (five documented gaps excluded)")
     print("PASS  duplicates: no full-row or month/app duplicates")
-    print(f"PASS  non-negative metrics: {len(df):,} rows")
+    print(f"PASS  non-negative metrics: {len(df):,} app-wise rows")
+    print(f"PASS  official pulse: {pulse['month_start'].min():%Y-%m-%d} to {pulse['month_start'].max():%Y-%m-%d} ({len(pulse)} months)")
 
 
 if __name__ == "__main__":

@@ -1,74 +1,81 @@
-# Finsight v1 — UPI growth, read with receipts
+# Finsight
 
-Finsight is a transparent, evidence-first dashboard and strategy memo about India’s UPI app ecosystem. It asks one focused question: **is UPI growth broadening across apps, or is it still concentrated in a duopoly—and what does that mean for a challenger like CRED?**
+Finsight is a transparent, evidence-first dashboard and strategy memo about India’s UPI app ecosystem. It asks one focused question: **is UPI growth broadening across apps, or is it still concentrated—and what does that mean for a challenger like CRED?**
 
-The answer is intentionally modest: **UPI is growing, but distribution remains concentrated.** In the verified record, monthly transaction volume rises from 11.16 billion in November 2023 to 19.97 billion in October 2025. PhonePe and Google Pay together account for 83.01% of October 2025 transaction volume. Scale is table stakes; distribution is the moat.
+The answer is intentionally modest: **UPI is growing, but distribution remains concentrated.** The verified app-wise record rises from 11.16 billion transactions in November 2023 to 19.97 billion in October 2025; PhonePe and Google Pay account for 83.01% of October 2025 app-wise volume. A separate official NPCI ecosystem pulse reports 24.51 billion transactions in August 2026. Those two series are shown separately because they do not have the same grain or app-level coverage.
 
-## What shipped in v1
+Finsight is a **reproducible analytics dashboard**, not an AI-driven product. The frontend is a static React application backed by generated, inspectable data modules. The analysis is deterministic Python/pandas work with a small, explicitly labelled forecasting benchmark.
 
-| Deliverable | Status |
+## v1.2 improvements
+
+| Area | What changed |
 |---|---|
-| Static dashboard with volume, concentration, app ranking, projection, and method sections | Complete |
-| Owner labels replacing `TBD` | Complete — maintained by Sundaram Dubey |
-| Three-minute walkthrough script and shot list | Complete — `docs/WALKTHROUGH.md` |
-| Explanation of 19 verified months out of a 24-month window | Complete — visible in dashboard, README, memo, and decisions log |
-| Honest model error reporting | Complete — 1.69% temporal holdout MAPE vs 2.15% train MAPE |
-| Data provenance and licensing posture | Complete — `docs/DATA_PROVENANCE.md` |
-| Automated checks for schema, nulls, date range, and duplicate rows | Complete — `python scripts/validate_data.py` and GitHub Actions |
-| Release license | Complete — MIT for code; NPCI data remains source-attributed |
-
-## Scope (locked)
-
-The analysis covers November 2023 through October 2025 at the `month_start, app_name` grain, with transaction volume in millions and value in crore rupees. The model is one linear regression on total transaction-volume growth using a calendar-month index. Bank-wise splits, additional models, additional cities or products, and custom long-tail engineering remain out of scope.
+| Current data | Added a cited official NPCI ecosystem pulse through August 2026 without silently mixing it into the older app-wise series. |
+| Missing months | Kept the five excluded app-wise months named and visible: December 2023, February 2024, March 2024, September 2024, and July 2025. |
+| Forecasting | Added expanding-window one-step validation across 11 folds comparing last value, rolling mean, drift, and linear trend. Linear trend leads at 3.22% MAPE on this small verified sequence. |
+| CRED lens | Added an app-wise CRED volume trend with latest verified share, rank, and volume, while keeping the October 2025 source boundary explicit. |
+| Repository quality | Added `citation.cff`, `CONTRIBUTING.md`, official pulse validation, benchmark output, and refreshed release documentation. |
+| Product language | Removed unsupported “AI-driven” positioning and replaced it with precise reproducible-analytics language. |
 
 ## The 19-of-24-month decision
 
-The nominal research window has 24 calendar months. Five app-wise exports—December 2023, February 2024, March 2024, September 2024, and July 2025—were byte-identical to their preceding month across app-level volumes. They were excluded from EDA, concentration analysis, and modeling rather than interpolated or silently treated as real observations. The effective table therefore contains **19 verified months and 1,482 rows**. This is a named limitation, not a claim that activity did not exist in those months. See `DECISIONS.md` and `docs/DATA_PROVENANCE.md`.
+The nominal app-wise research window contains 24 calendar months. Five exports were byte-identical to their preceding month across app-level volumes. They were excluded from EDA, concentration analysis, and modeling rather than interpolated or silently treated as real observations. The effective app-wise table contains **19 verified months and 1,482 rows**. This is a named limitation, not a claim that activity did not exist in those months. See `DECISIONS.md`, `docs/DATA_PROVENANCE.md`, and `docs/V1_2_AUDIT.md`.
 
 ## Model error, reported honestly
 
-A temporal holdout keeps the last four real months out of training. Test MAPE is **1.69%**, while train MAPE is **2.15%**. That split does not make the projection universally reliable: the sample is small, the model has no seasonality term, and structural changes can move actual volume outside the approximate residual band. The projection is directional evidence, not a promise.
+The v1.2 benchmark uses an expanding-window, one-step-ahead design with a minimum training window of eight verified observations and 11 evaluated folds. Linear trend records 3.22% MAPE, compared with 4.57% for a three-point rolling mean, 5.08% for a last-value baseline, and 5.52% for drift. The sample is small, the series contains named gaps, and the displayed Jan 2026 projection remains directional rather than a production forecast.
 
 ## Data provenance and licensing
 
-The primary source is [NPCI UPI Ecosystem Statistics](https://www.npci.org.in/what-we-do/upi/upi-ecosystem-statistics). NPCI monthly press releases are cross-checks only. Raw exports are retained in `data/raw/`; cleaned rows retain `source_file` lineage. The code is MIT-licensed. NPCI data is attributed to NPCI and is not relicensed by this repository. Review current NPCI terms before commercial redistribution or publishing a raw-data mirror. The dashboard is designed as a source-attributed, educational visualization and contains no personal transaction data.
+The primary source is [NPCI UPI Product Statistics](https://www.npci.org.in/product/upi/product-statistics). NPCI monthly press releases are cross-checks only. The official August 2026 pulse is stored in `data/raw/npci_upi_monthly_2026_27.csv` with its source URL and note. App-wise cleaned rows retain `source_file` lineage. The code is MIT-licensed; NPCI data is attributed to NPCI and is not relicensed by this repository. Review current NPCI terms before commercial redistribution or publishing a raw-data mirror.
 
 ## Export and local-first app
 
-The dashboard now includes browser-local CSV and PDF exports. The CSV report contains the verified monthly aggregates, next-quarter projection rows, and ranking rows. The PDF report captures the dashboard charts, thesis, caveats, and provenance. No export is uploaded to a server.
-
-Finsight is also installable as a PWA from a hosted HTTPS demo or `localhost`. For a dependency-free static bundle, run `bash scripts/package_portable.sh`, then unzip `portable/finsight-v1-static.zip` on another device and run `./run-local.sh` from the extracted folder. Open `http://localhost:4173` in a browser. This is the supported portable path; signed native Windows/macOS/Linux/Android/iOS installers are intentionally not part of this release.
+The dashboard includes browser-local CSV and PDF exports. It is installable as a PWA from a hosted HTTPS demo or `localhost`. For a dependency-free static bundle, run `bash scripts/package_portable.sh`, unzip the resulting archive, run `./run-local.sh`, and open `http://localhost:4173`. No account, database, paid API, or backend is required.
 
 ## Run the checks
 
 ```bash
 python3 -m pip install pandas
 python3 scripts/validate_data.py
+python3 scripts/model_benchmark.py
+python3 scripts/build_dashboard_data.py
+pnpm install
+pnpm check
+pnpm test
+pnpm build
 ```
 
-The gate checks the expected schema, required-field nulls, locked date window, 19 verified months, full-row duplicates, duplicate `(month_start, app_name)` keys, numeric types, and non-negative metrics. The same gate runs on pushes and pull requests through `.github/workflows/validate.yml`.
+The data gate checks schema, required-field nulls, date windows, 19 verified app-wise months, duplicate rows, duplicate `(month_start, app_name)` keys, numeric types, non-negative metrics, and the separately sourced official pulse file. GitHub Actions runs the validation gate on pushes and pull requests.
 
 ## Repository map
 
 ```text
 Finsight/
-├── data/raw/                    untouched NPCI workbook exports
-├── data/processed/              cleaned data, totals, projections, notes
-├── notebooks/model.py           EDA and linear regression
-├── sql/                         schema and analytical queries
+├── data/raw/                    source exports and cited official pulse
+├── data/processed/              cleaned data, totals, projections, benchmarks
+├── notebooks/model.py           EDA and baseline linear regression
+├── scripts/validate_data.py     automated data-quality gate
+├── scripts/model_benchmark.py   expanding-window model comparison
+├── scripts/build_dashboard_data.py  deterministic frontend data refresh
 ├── memo/memo.md                 one-page strategy memo
 ├── docs/DATA_PROVENANCE.md      source and licensing notes
-├── docs/WALKTHROUGH.md          three-minute recording script
-├── scripts/validate_data.py     automated release gate
-├── ai-appendix/                 where AI was trusted and caught
+├── docs/V1_2_AUDIT.md           critique-to-implementation audit
+├── CONTRIBUTING.md              contribution and evidence standards
+├── citation.cff                 software citation metadata
 ├── DECISIONS.md                 dated scope and cleaning decisions
-├── TEAM_MEMBERS.md              plain ownership record
+├── TEAM_MEMBERS.md              ownership record
 └── LICENSE                      MIT code license
 ```
 
 ## Dashboard and release
 
-The live dashboard is a static frontend designed for personal use and optional public viewing. It reads the verified derived aggregates bundled with the dashboard and does not require login, a database, or a paid API. If the deployment operator accepts the NPCI attribution and licensing posture in `docs/DATA_PROVENANCE.md`, publish the static demo through the project hosting UI. The repository’s tagged v1 release should include the source, raw archive, processed outputs, validation script, walkthrough script, and memo together.
+The live dashboard is a static frontend for personal use and optional public viewing. It reads verified derived aggregates bundled with the dashboard and does not require login, a database, or a paid API. The v1.2 release is published from the existing GitHub repository with source, processed outputs, validation scripts, benchmark artifacts, documentation, and portable packaging.
+
+## References
+
+1. [NPCI UPI Product Statistics](https://www.npci.org.in/product/upi/product-statistics)
+2. [GitHub citation file format](https://citation-file-format.github.io/)
 
 ## Credits
 
