@@ -3,12 +3,20 @@ name: Build portable Finsight app
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to receive the portable bundle"
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
   portable:
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,4 +30,4 @@ jobs:
       - name: Attach portable bundle
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.event.release.tag_name }}" portable/finsight-v1-static.zip --clobber
+        run: gh release upload "$RELEASE_TAG" portable/finsight-v1-static.zip --clobber
