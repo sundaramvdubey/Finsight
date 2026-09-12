@@ -1,10 +1,53 @@
 # Finsight
 
-Finsight is a transparent, evidence-first dashboard and strategy memo about India’s UPI app ecosystem. It asks one focused question: **is UPI growth broadening across apps, or is it still concentrated—and what does that mean for a challenger like CRED?**
+> **A reproducible analytics dashboard and strategy memo about India’s UPI app ecosystem.**
 
-The answer is intentionally modest: **UPI is growing, but distribution remains concentrated.** The verified app-wise record rises from 11.16 billion transactions in November 2023 to 19.97 billion in October 2025; PhonePe and Google Pay account for 83.01% of October 2025 app-wise volume. A separate official NPCI ecosystem pulse reports 24.51 billion transactions in August 2026. Those two series are shown separately because they do not have the same grain or app-level coverage.
+[![Status](https://img.shields.io/badge/status-v1.2-365746?style=flat-square)](https://github.com/sundaramvdubey/Finsight)
+[![Data](https://img.shields.io/badge/data-NPCI%20sourced-D59B48?style=flat-square)](https://www.npci.org.in/product/upi/product-statistics)
+[![License](https://img.shields.io/badge/code-MIT-162233?style=flat-square)](LICENSE)
 
-Finsight is a **reproducible analytics dashboard**, not an AI-driven product. The frontend is a static React application backed by generated, inspectable data modules. The analysis is deterministic Python/pandas work with a small, explicitly labelled forecasting benchmark.
+Finsight asks one focused question: **is UPI growth broadening across apps, or is it still concentrated—and what might that mean for a challenger such as CRED?** It answers with inspectable data, deterministic Python/pandas analysis, SQL queries, and a static React dashboard rather than unsupported “AI-driven” claims.
+
+## The short answer
+
+UPI is growing, but distribution remains concentrated. The verified app-wise record rises from **11.16 billion transactions in November 2023** to **19.97 billion in October 2025**; PhonePe and Google Pay account for **83.01% of October 2025 app-wise volume**. A separate official NPCI ecosystem pulse reports **24.51 billion transactions in August 2026**. These series remain separate because they do not have the same grain or app-level coverage.
+
+## Why this project is credible
+
+| Evidence | Current result |
+|---|---|
+| App-wise research window | 19 verified months, 1,482 cleaned rows |
+| Concentration lens | Top-2 share and HHI over time |
+| Forecasting benchmark | Expanding-window, one-step validation across 11 folds |
+| Best benchmark | Linear trend at 3.22% MAPE on the small verified sequence |
+| Reproducibility | Python validation, generated frontend data, SQL, cited provenance |
+
+## Explore the project
+
+- **[Open the strategy memo](memo/memo.md)** for the decision-oriented narrative.
+- **[Review the data provenance](docs/DATA_PROVENANCE.md)** for sources, cleaning, and licensing boundaries.
+- **[Inspect the audit](docs/V1_2_AUDIT.md)** for the critique-to-implementation record.
+- **[Browse the analysis figures](notebooks/figures/)** for growth, concentration, seasonality, app share, and projection.
+
+## Run it locally
+
+```bash
+python3 -m pip install pandas
+python3 scripts/validate_data.py
+python3 scripts/model_benchmark.py
+python3 scripts/build_dashboard_data.py
+pnpm install
+pnpm check
+pnpm test
+pnpm build
+pnpm dev
+```
+
+Then open the local Vite URL shown in the terminal. The dashboard is static, local-first, and requires no account, database, paid API, or backend service.
+
+## Project positioning
+
+Finsight is a **data and strategy project**, not a production financial product or investment recommendation. Its forecasts are directional because the verified sequence is small and contains named gaps. The repository keeps those limitations visible instead of smoothing them away.
 
 ## v1.2 improvements
 
